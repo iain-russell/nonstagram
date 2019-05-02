@@ -17,9 +17,11 @@
         <section class="column is-6 " id="media-column">
           <hr />
           <div class="content" id="content-column">
-            <p v-for="comment in gallery.comments">{{ comment.content }}</p>
-            <p v-for="comment in newComments">
-              {{comment.content}}
+            <p class="comments" v-for="comment in gallery.comments">
+              {{ comment.content }}
+            </p>
+            <p class="comments" v-for="comment in newComments">
+              {{ comment.content }}
             </p>
           </div>
           <hr />
@@ -33,6 +35,7 @@
                   id="comment-input"
                   rows="1"
                   placholder="Add a comment"
+                  @keyup.enter.native="shiftForNewLine()"
                 >
                 </b-input>
                 <button
@@ -75,6 +78,11 @@ export default {
   computed: mapGetters(["getToken"]),
   methods: {
     ...mapActions(["incrementCounter"]),
+    shiftForNewLine() {
+      if (!event.shiftKey) {
+          this.addComment();
+        }
+    },
     async addComment() {
       const token = this.getToken;
       const { data } = await axios
@@ -86,6 +94,7 @@ export default {
           }
         )
         .then(response => {
+          console.log(response.data);
           return response;
         });
       this.newComments.push(data.newComment);
@@ -123,6 +132,9 @@ section {
 .content {
   height: 50%;
 }
+.content {
+  margin-bottom: 500px !important!;
+}
 #media-column {
   height: 75vh;
   background: white;
@@ -137,6 +149,11 @@ section {
   display: flex;
   height: 80vh;
   margin-bottom: 0px;
+  font-family: "Roboto";
+  font-size: 14px;
+}
+.comment {
+  line-height: 1em;
 }
 .textarea {
 }

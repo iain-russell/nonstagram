@@ -92,8 +92,7 @@ module.exports = {
         gallery: gallery,
         created_at: Date.now()
       });
-
-      Gallery.findOneAndUpdate(
+      await Gallery.findOneAndUpdate(
         { _id: req.params.galleryId },
         { $push: { comments: newComment } }
       );
