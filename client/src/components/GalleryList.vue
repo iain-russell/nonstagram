@@ -10,6 +10,7 @@
         <div
           class="column is-4"
           id="image-box"
+          @click="openCloseUp(gallery)"
           v-for="gallery in getGalleries.slice().reverse()"
         >
           <figure class="image is-square">
@@ -29,34 +30,45 @@
 
 <script>
 import axios from "axios";
+import CloseUp from "./CloseUp";
 
 import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
   Name: "GalleryList",
   data() {
-    return {
-    };
+    return {};
   },
   created: function() {
     this.fetchGalleries();
   },
   computed: {
-    realGalleries() {
-      return this.$store.getters.getGalleries;
+    watchCounter() {
+      return this.$store.getters.getCounter;
     },
     reverseGalleries() {
       return this.getGalleries.splice().reverse();
     },
-    ...mapGetters(["isLoggedIn", "getGalleries"]),
+    ...mapGetters(["isLoggedIn", "getGalleries", "getCounter"])
   },
   watch: {
-    realGalleries(value) {
-      this.fetchGalleries();
+
+    watchCounter() {
+      setTimeout(() => {
+        this.fetchGalleries();
+      }, 1000);
     }
   },
   methods: {
-    ...mapActions(["fetchGallery", "fetchGalleries"])
+    ...mapActions(["fetchGallery", "fetchGalleries", "incrementCounter"]),
+    openCloseUp(gallery) {
+      this.$modal.open({
+        parent: this,
+        component: CloseUp,
+        hasModalCard: false,
+        props: { gallery: gallery }
+      });
+    }
   }
 };
 </script>

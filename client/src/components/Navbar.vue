@@ -134,7 +134,7 @@ export default {
         hasModalCard: false,
         props: {}
       });
-      this.fetchGalleries();
+      // this.fetchGalleries();
     }
   }
 };

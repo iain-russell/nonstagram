@@ -4,13 +4,15 @@ import { router } from "../../main.js";
 
 const state = {
   gallery: "",
-  galleries: []
+  galleries: [],
+  counter: 0
 };
 
 const getters = {
   getGallery: state => state.gallery,
   isGallerySelected: state => !!state.gallery,
-  getGalleries: state => state.galleries
+  getGalleries: state => state.galleries,
+  getCounter: state => state.counter
 };
 
 const actions = {
@@ -53,6 +55,9 @@ const actions = {
   },
   resetGallery({ commit }) {
     commit("setGallery", "");
+  },
+  incrementCounter({ commit }) {
+    commit("plusCounter");
   }
 };
 
@@ -65,6 +70,9 @@ const mutations = {
   },
   pushGallery: (state, gallery) => {
     state.galleries.push(gallery);
+  },
+  plusCounter: state => {
+    state.counter += 1;
   }
 };
 

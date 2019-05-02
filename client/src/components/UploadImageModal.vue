@@ -36,9 +36,9 @@ export default {
     return {};
   },
   created: function() {},
-  computed: mapGetters(["getToken", "getGallery"]),
+  computed: mapGetters(["getToken"]),
   methods: {
-    ...mapActions(["fetchGallery", "fetchGalleries"]),
+    ...mapActions(["incrementCounter"]),
     async createGallery() {
       const { data } = await axios.post(
         "http://localhost:3001",
@@ -72,8 +72,7 @@ export default {
         type: "is-success",
         position: "is-bottom"
       });
-      // return gallery;
-      this.fetchGalleries();
+      this.incrementCounter();
     }
   }
 };
