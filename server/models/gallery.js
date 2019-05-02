@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const gallerySchema = new Schema({
   name: String,
+  text: String, 
   created_at: Date,
   user: {
     type: Schema.Types.ObjectId,

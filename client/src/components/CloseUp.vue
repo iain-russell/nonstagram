@@ -2,7 +2,7 @@
   <div class="modal-card">
     <section class="section" id="section-body">
       <article class="columns">
-        <section class="column is-6 " id="image-column">
+        <section class="column is-7 " id="image-column">
           <div id="image-div">
             <figure class="image is-4by5" id="figure-image">
               <img
@@ -14,15 +14,73 @@
             </figure>
           </div>
         </section>
-        <section class="column is-6 " id="media-column">
+        <section class="column is-5 " id="media-column">
           <hr />
           <div class="content" id="content-column">
-            <p class="comments" v-for="comment in gallery.comments">
-              {{ comment.content }}
-            </p>
-            <p class="comments" v-for="comment in newComments">
-              {{ comment.content }}
-            </p>
+            <!-- .text-content -->
+            <article class="media">
+              <figure class="media-left ">
+                <div v-html="identicon(gallery.user.email)"></div>
+              </figure>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>{{ gallery.user.email }}</strong>
+                    <small>@johnsmith</small>
+                    <br />
+                    {{ gallery.comments[0].content }}
+                    <br />
+                    <small>31m</small>
+                  </p>
+                </div>
+              </div>
+            </article>
+            <!-- /.text-content -->
+
+            <!-- .comment-content -->
+            <article v-for="comment in gallery.comments" class="media">
+              <figure class="media-left ">
+                <div v-html="identicon(comment.user.email)"></div>
+              </figure>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>{{ comment.user.email }}</strong>
+                    <small>@johnsmith</small>
+                    <br />
+                    {{ comment.content }}
+                    <br />
+                    <small>{{ comment.created_at }}</small>
+                  </p>
+                </div>
+              </div>
+            </article>
+            <!-- /.comment-content -->
+
+            <!-- .newComment-content -->
+            <article v-for="comment in newComments" class="media">
+              <figure class="media-left ">
+                <div v-html="identicon(comment.user.email)"></div>
+
+              </figure>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>{{ comment.user.email }}</strong>
+                    <small>@johnsmith</small>
+                    <br />
+                    {{ comment.content }}
+                    <br />
+                    <small>{{ comment.created_at }}</small>
+                  </p>
+                </div>
+              </div>
+            </article>
+            <!-- /.newComment-content -->
+
+            <!-- <p class="comments" v-for="comment in newComments">
+              {{ comment}}
+            </p> -->
           </div>
           <hr />
           <footer class="">
@@ -56,6 +114,7 @@
 
 <script>
 import axios from "axios";
+import jdenticon from "jdenticon";
 
 import { mapGetters, mapActions } from "vuex";
 
@@ -80,8 +139,8 @@ export default {
     ...mapActions(["incrementCounter"]),
     shiftForNewLine() {
       if (!event.shiftKey) {
-          this.addComment();
-        }
+        this.addComment();
+      }
     },
     async addComment() {
       const token = this.getToken;
@@ -97,9 +156,12 @@ export default {
           console.log(response.data);
           return response;
         });
-      this.newComments.push(data.newComment);
+      this.newComments.push(data.commentFullData);
       this.comment = "";
       this.incrementCounter();
+    },
+    identicon(username) {
+      return jdenticon.toSvg(username, 32);
     }
   }
 };
@@ -132,8 +194,11 @@ section {
 .content {
   height: 50%;
 }
-.content {
-  margin-bottom: 500px !important!;
+.content figure:not(:last-child) {
+  margin-bottom: 0px;
+}
+.media-left {
+  margin:10px;
 }
 #media-column {
   height: 75vh;

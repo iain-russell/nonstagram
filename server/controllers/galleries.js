@@ -90,6 +90,7 @@ module.exports = {
       const newComment = new Comment({
         content: req.body.content,
         gallery: gallery,
+        user: gallery.user,
         created_at: Date.now()
       });
       await Gallery.findOneAndUpdate(
@@ -97,7 +98,10 @@ module.exports = {
         { $push: { comments: newComment } }
       );
       await newComment.save();
-      return res.status(200).json({ newComment });
+      const commentFullData = await Comment.findById(newComment._id).populate({
+        path: "user", select: '-password'
+      });
+      return res.status(200).json({ commentFullData });
     } catch (err) {
       next(err);
     }

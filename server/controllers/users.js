@@ -19,7 +19,13 @@ module.exports = {
     try {
       const user = await User.findById(req.user.id).populate({
         path: "galleries",
-        populate: { path: "images comments user", select: "-password" }
+        populate: {
+          path: "images comments user",
+          select: "-password",
+          populate: {
+            path: "user"
+          }
+        }
       });
       const galleries = user.galleries;
       res.status(200).json(galleries);
