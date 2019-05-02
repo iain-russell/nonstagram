@@ -2,11 +2,12 @@ import VueRouter from "vue-router";
 import Vue from "vue";
 import App from "./App.vue";
 import Buefy from "buefy";
-import 'buefy/dist/buefy.css'
+import "buefy/dist/buefy.css";
 
 import store from "./store/index";
 
 import GalleryList from "./components/GalleryList";
+import About from "./components/About";
 
 Vue.config.productionTip = false;
 
@@ -19,8 +20,9 @@ require("./assets/main.scss");
 export const router = new VueRouter({
   mode: "history",
   routes: [
-    { path: '/', component: GalleryList},
-    ]
+    { path: "/", component: GalleryList },
+    { path: "/about", component: About }
+  ]
 });
 
 new Vue({

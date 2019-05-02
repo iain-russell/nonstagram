@@ -1,6 +1,8 @@
 const JWT = require("jsonwebtoken");
 const User = require("../models/user");
 const Gallery = require("../models/gallery");
+const Image = require("../models/image");
+const Comment = require("../models/comment");
 const { JWT_SECRET } = require("../configuration");
 
 signToken = user => {
@@ -8,7 +10,7 @@ signToken = user => {
     {
       iss: "image-gallery",
       sub: user.id,
-      iat: new Date().getTime(),
+      iat: new Date().getTime()
       // exp: new Date().setDate(new Date().getDate() + 10)
     },
     JWT_SECRET
@@ -18,7 +20,19 @@ signToken = user => {
 module.exports = {
   index: async (req, res, next) => {
     try {
-      const user = await User.findById(req.user.id).populate("galleries");
+      const user = await User.findById(req.user.id)
+        .populate({
+          path: "galleries",
+          populate: { path: "images" }
+        })
+        .populate({
+          path: "galleries",
+          populate: { path: "comments" }
+        })
+        .populate({
+          path: "galleries",
+          populate: { path: "user" }
+        });
       const galleries = user.galleries;
       res.status(200).json(galleries);
     } catch (err) {

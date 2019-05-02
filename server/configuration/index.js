@@ -1,3 +1,3 @@
 module.exports = {
-  JWT_SECRET: 'image-gallery-site-authentication'
+  JWT_SECRET: 'nonstagram-authentication'
 }

@@ -20,7 +20,10 @@ router
   .get(passportJWT, UsersController.index)
   .post(passportJWT, GalleriesController.newGallery);
 
-router.route("/:galleryId").get(passportJWT, GalleriesController.getGallery);
+router
+  .route("/:galleryId")
+  .get(passportJWT, GalleriesController.getGallery)
+  .post(passportJWT, GalleriesController.newComment);
 
 router
   .route("/:galleryId/upload-images")

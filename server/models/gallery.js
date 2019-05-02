@@ -11,6 +11,10 @@ const gallerySchema = new Schema({
   images: [{
     type: Schema.Types.ObjectId,
     ref: 'image'
+  }],
+  comments: [{
+    type: Schema.Types.ObjectId,
+    ref: 'comment'
   }]
 });
 

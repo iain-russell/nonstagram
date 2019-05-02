@@ -3,6 +3,7 @@ const upload = require("../helpers/uploadHelper");
 const Gallery = require("../models/gallery");
 const User = require("../models/user");
 const Image = require("../models/image");
+const Comment = require("../models/comment");
 
 const singleUpload = upload.single("image");
 const multipleUpload = upload.array("image");
@@ -79,6 +80,22 @@ module.exports = {
 
         return res.json({ body: req.files, imageId: imageId });
       });
+    } catch (err) {
+      next(err);
+    }
+  },
+  newComment: async (req, res, next) => {
+    try {
+      console.log(req.body);
+      const gallery = await Gallery.findById(req.params.galleryId);
+      const newComment = new Comment({
+        content: req.body.content,
+        gallery: gallery
+      });
+      await newComment.save();
+      gallery.comments.push(newComment);
+      await gallery.save();
+      return res.status(200).json({ newComment});
     } catch (err) {
       next(err);
     }

@@ -15,8 +15,7 @@
         class="navbar-burger"
         aria-label="menu"
         aria-expanded="false"
-        @
-        click="showNav = !showNav"
+        @click="showNav = !showNav"
         :class="{ 'is-active': showNav }"
       >
         <span aria-hidden="true"></span>
@@ -50,7 +49,7 @@
           <a
             class="far fa-plus-square fa-2x "
             v-if="isLoggedIn"
-            @click="openUploadModal"
+            @click="openUploadModal()"
           >
           </a>
           <!-- </router-link> -->
@@ -134,7 +133,6 @@ export default {
         hasModalCard: false,
         props: {}
       });
-      // this.fetchGalleries();
     }
   }
 };

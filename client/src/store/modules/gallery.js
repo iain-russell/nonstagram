@@ -35,17 +35,6 @@ const actions = {
         }
       })
       .then(async response => {
-        for (const gallery of response.data) {
-          for (let i = 0; i < gallery.images.length; i++) {
-            const { data } = await axios.get(
-              `http://localhost:3001/images/${gallery.images[i]}`,
-              {
-                headers: { Authorization: `${auth.state.token}` }
-              }
-            );
-            gallery.images[i] = data;
-          }
-        }
         commit("setGalleries", response.data);
         return response.data;
       });

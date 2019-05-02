@@ -11,7 +11,7 @@
           class="column is-4"
           id="image-box"
           @click="openCloseUp(gallery)"
-          v-for="gallery in getGalleries.slice().reverse()"
+          v-for="gallery in reverseGalleries"
         >
           <figure class="image is-square">
             <img
@@ -47,12 +47,11 @@ export default {
       return this.$store.getters.getCounter;
     },
     reverseGalleries() {
-      return this.getGalleries.splice().reverse();
+      return this.$store.getters.getGalleries.slice().reverse();
     },
     ...mapGetters(["isLoggedIn", "getGalleries", "getCounter"])
   },
   watch: {
-
     watchCounter() {
       setTimeout(() => {
         this.fetchGalleries();
