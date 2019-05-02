@@ -1,0 +1,11 @@
+// $primary: blue;
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,700,800,900");
+
+$navbar-height: 4rem;
+$navbar-padding-horizontal: 10rem;
+
+
+@import "../../node_modules/bulma/sass/utilities/initial-variables.sass";
+// $navbar-breakpoint: $gap;
+
+@import "~bulma/bulma";
