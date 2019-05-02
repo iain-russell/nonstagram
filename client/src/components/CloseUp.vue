@@ -17,9 +17,10 @@
         <section class="column is-6 " id="media-column">
           <hr />
           <div class="content" id="content-column">
-            <p>hey</p>
-            <p>hey</p>
-            
+            <p v-for="comment in gallery.comments">{{ comment.content }}</p>
+            <p v-for="comment in newComments">
+              {{comment.content}}
+            </p>
           </div>
           <hr />
           <footer class="">
@@ -34,7 +35,13 @@
                   placholder="Add a comment"
                 >
                 </b-input>
-                <button class="button is-medium" type="submit">Post</button>
+                <button
+                  class="button is-medium"
+                  type="submit"
+                  @click="addComment()"
+                >
+                  Post
+                </button>
               </b-field>
             </section>
           </footer>
@@ -45,13 +52,46 @@
 </template>
 
 <script>
+import axios from "axios";
+
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "CloseUp",
   props: ["gallery"],
   data() {
     return {
-      comment: ""
+      comment: "",
+      newComments: []
     };
+  },
+  watch: {
+    gallery() {
+      setTimeout(() => {
+        this.fetchGalleries();
+      }, 1000);
+    }
+  },
+  computed: mapGetters(["getToken"]),
+  methods: {
+    ...mapActions(["incrementCounter"]),
+    async addComment() {
+      const token = this.getToken;
+      const { data } = await axios
+        .post(
+          `http://localhost:3001/${this.gallery._id}`,
+          { content: this.comment },
+          {
+            headers: { Authorization: `${token}` }
+          }
+        )
+        .then(response => {
+          return response;
+        });
+      this.newComments.push(data.newComment);
+      this.comment = "";
+      this.incrementCounter();
+    }
   }
 };
 </script>
@@ -61,7 +101,9 @@ img {
   height: 100%;
   object-fit: cover;
 }
-hr {margin:10px;}
+hr {
+  margin: 10px;
+}
 section {
 }
 #section-body {
@@ -100,8 +142,8 @@ section {
 }
 #comment-input {
 }
-.control.is-clearfix{
-  width:100vw;
+.control.is-clearfix {
+  width: 100vw;
 }
 #comment-field {
 }

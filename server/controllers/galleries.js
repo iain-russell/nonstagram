@@ -86,16 +86,19 @@ module.exports = {
   },
   newComment: async (req, res, next) => {
     try {
-      console.log(req.body);
       const gallery = await Gallery.findById(req.params.galleryId);
       const newComment = new Comment({
         content: req.body.content,
-        gallery: gallery
+        gallery: gallery,
+        created_at: Date.now()
       });
+
+      Gallery.findOneAndUpdate(
+        { _id: req.params.galleryId },
+        { $push: { comments: newComment } }
+      );
       await newComment.save();
-      gallery.comments.push(newComment);
-      await gallery.save();
-      return res.status(200).json({ newComment});
+      return res.status(200).json({ newComment });
     } catch (err) {
       next(err);
     }

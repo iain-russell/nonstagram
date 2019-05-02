@@ -1,8 +1,5 @@
 const JWT = require("jsonwebtoken");
 const User = require("../models/user");
-const Gallery = require("../models/gallery");
-const Image = require("../models/image");
-const Comment = require("../models/comment");
 const { JWT_SECRET } = require("../configuration");
 
 signToken = user => {
@@ -20,38 +17,12 @@ signToken = user => {
 module.exports = {
   index: async (req, res, next) => {
     try {
-      const user = await User.findById(req.user.id)
-        .populate({
-          path: "galleries",
-          populate: { path: "images" }
-        })
-        .populate({
-          path: "galleries",
-          populate: { path: "comments" }
-        })
-        .populate({
-          path: "galleries",
-          populate: { path: "user" }
-        });
+      const user = await User.findById(req.user.id).populate({
+        path: "galleries",
+        populate: { path: "images comments user", select: "-password" }
+      });
       const galleries = user.galleries;
       res.status(200).json(galleries);
-    } catch (err) {
-      next(err);
-    }
-  },
-  newGallery: async (req, res, next) => {
-    try {
-      const newGallery = new Gallery({
-        name: req.body.name,
-        user: req.user,
-        created_at: Date.now()
-      });
-      const user = req.user;
-      await newGallery.save();
-      user.galleries.push(newGallery);
-      await user.save();
-
-      res.status(200).json(newGallery);
     } catch (err) {
       next(err);
     }
