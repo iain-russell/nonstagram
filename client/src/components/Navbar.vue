@@ -28,41 +28,52 @@
     <div class="navbar-menu" :class="{ 'is-active': showNav }">
       <div class="navbar-end">
         <!-- .sign-up -->
-        <div class="navbar-item">
-          <button v-if="!isLoggedIn" @click="openSignUp()" class="button">
-            Sign Up
-          </button>
+        <div class="right">
+          <div class="navbar-item" v-if="!isLoggedIn">
+            <button @click="openSignUp()" class="button">
+              Sign Up
+            </button>
+          </div>
         </div>
         <!-- /.sign-up -->
 
         <!-- .log-in -->
-        <div class="navbar-item">
-          <button v-if="!isLoggedIn" @click="openSignIn()" class="button">
-            Log In
-          </button>
+        <div class="right">
+          <div class="navbar-item" v-if="!isLoggedIn">
+            <button @click="openSignIn()" class="button">
+              Log In
+            </button>
+          </div>
         </div>
         <!-- /.log-in -->
 
         <!-- .upload-images -->
-        <div class="navbar-item" v-if="isLoggedIn">
-          <!-- <router-link to="/upload"> -->
-          <a
-            class="far fa-plus-square fa-2x "
-            v-if="isLoggedIn"
-            @click="openUploadModal()"
-          >
-          </a>
-          <!-- </router-link> -->
+        <div class="right">
+          <div class="navbar-item" v-if="isLoggedIn">
+            <button class="button" @click="openUploadModal()">Upload</button>
+          </div>
         </div>
         <!-- /.upload-images -->
 
+        <!-- .about -->
+        <div class="right">
+          <div class="navbar-item">
+            <router-link to="/about">
+              <a class="button">About </a>
+            </router-link>
+          </div>
+        </div>
+        <!-- /.about -->
+
         <!-- .logout -->
-        <div class="navbar-item" v-if="isLoggedIn">
-          <router-link to="/">
-            <button v-if="isLoggedIn" class="button" @click="submitSignOut()">
-              Logout
-            </button>
-          </router-link>
+        <div class="right">
+          <div class="navbar-item" v-if="isLoggedIn">
+            <router-link to="/">
+              <button v-if="isLoggedIn" class="button" @click="submitSignOut()">
+                Logout
+              </button>
+            </router-link>
+          </div>
         </div>
         <!-- /.logout -->
       </div>

@@ -20,6 +20,8 @@ router
   .get(passportJWT, UsersController.index)
   .post(passportJWT, GalleriesController.newGallery);
 
+router.route("/userInfo").get(passportJWT, UsersController.getUser);
+
 router
   .route("/:galleryId")
   .get(passportJWT, GalleriesController.getGallery)
@@ -28,6 +30,10 @@ router
 router
   .route("/:galleryId/upload-images")
   .post(passportJWT, GalleriesController.newGalleryImages);
+
+router
+  .route("/:galleryId/comments")
+  .delete(GalleriesController.deleteComment);
 
 router
   .route("/signup")

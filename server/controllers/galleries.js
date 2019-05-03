@@ -105,5 +105,12 @@ module.exports = {
     } catch (err) {
       next(err);
     }
+  },
+  deleteComment: async (req, res, next) => {
+    try {
+      const comment = await Comment.findByIdAndDelete(req.body.comment)
+    } catch (err) {
+      next(err);
+    }
   }
 };

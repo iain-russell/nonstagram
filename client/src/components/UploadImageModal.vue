@@ -1,9 +1,6 @@
 <template>
-  <div class="section">
-    <div class="modal-card" style="width: auto">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Upload Images</p>
-      </header>
+  <div class="section center">
+    <div class="modal-card">
       <section class="modal-card-body">
         <div class="dropper">
           <input
@@ -12,14 +9,11 @@
             multiple
             accept="image/*"
           />
-          <span>Drag files here!</span>
+          <i class="fas fa-cloud-upload-alt fa-5x"></i>
+          <br />
+          <span><button style="margin-right: 5px;">Browse</button> or drag files here!</span>
         </div>
       </section>
-      <footer class="modal-card-foot">
-        <button class="button" type="button" @click="$parent.close()">
-          Close
-        </button>
-      </footer>
     </div>
   </div>
 </template>
@@ -33,12 +27,13 @@ export default {
   name: "UploadImages",
 
   data() {
-    return {};
+    return {
+    };
   },
   created: function() {},
   computed: mapGetters(["getToken"]),
   methods: {
-    ...mapActions(["incrementCounter"]),
+    ...mapActions(["fetchGallery", "incrementCounter"]),
     async createGallery() {
       const { data } = await axios.post(
         "http://localhost:3001",
@@ -68,38 +63,42 @@ export default {
       this.$parent.close();
       this.$toast.open({
         duration: 3000,
-        message: "Images uploaded!",
+        message: "Image uploaded!",
         type: "is-success",
         position: "is-bottom"
       });
       this.incrementCounter();
-    }
+    },
   }
 };
 </script>
 
 <style scoped>
 .dropper {
-  height: 30vh;
-  border: 2px dashed black;
-  border-radius: 5px;
+  height: 50vh;
+  border: 1px dashed black;
+  border-radius: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   position: relative;
   background-color: white;
 }
 .dropper:hover {
-  background-color: #eee;
+  background-color: #f7f7f7;
 }
 input {
   width: 100%;
-  height: 30vh;
+  height: 50vh;
   position: absolute;
   opacity: 0;
 }
 .progress-bar {
   text-align: center;
   padding: 70px 10px;
+}
+.modal-card-body {
+  border-radius: 10px;
 }
 </style>

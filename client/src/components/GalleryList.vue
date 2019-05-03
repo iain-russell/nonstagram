@@ -41,6 +41,7 @@ export default {
   },
   created: function() {
     this.fetchGalleries();
+    this.getUserData();
   },
   computed: {
     watchCounter() {
@@ -49,7 +50,7 @@ export default {
     reverseGalleries() {
       return this.$store.getters.getGalleries.slice().reverse();
     },
-    ...mapGetters(["isLoggedIn", "getGalleries", "getCounter"])
+    ...mapGetters(["isLoggedIn", "getGalleries", "getCounter", "getUser"])
   },
   watch: {
     watchCounter() {
@@ -59,7 +60,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["fetchGallery", "fetchGalleries", "incrementCounter"]),
+    ...mapActions(["fetchGallery", "fetchGalleries", "getUserData","incrementCounter"]),
     openCloseUp(gallery) {
       this.$modal.open({
         parent: this,

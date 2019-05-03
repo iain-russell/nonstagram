@@ -33,6 +33,14 @@ module.exports = {
       next(err);
     }
   },
+  getUser: async (req, res, next) => {
+    try {
+      const user = await User.findById(req.user.id).select('-password');
+      res.status(200).json(user);
+    } catch (err) {
+      next(err);
+    }
+  },
   signUp: async (req, res, next) => {
     const { email, password } = req.value.body;
     // Check if there is a user with the same email

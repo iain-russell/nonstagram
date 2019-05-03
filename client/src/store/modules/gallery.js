@@ -5,14 +5,16 @@ import { router } from "../../main.js";
 const state = {
   gallery: "",
   galleries: [],
-  counter: 0
+  counter: 0,
+  user: ""
 };
 
 const getters = {
   getGallery: state => state.gallery,
   isGallerySelected: state => !!state.gallery,
   getGalleries: state => state.galleries,
-  getCounter: state => state.counter
+  getCounter: state => state.counter,
+  getUser: state => state.user
 };
 
 const actions = {
@@ -25,6 +27,19 @@ const actions = {
         commit("setGallery", response.data);
         router.push("/gallery");
         return response.data;
+      });
+  },
+  async getUserData({ commit }) {
+    await axios
+      .get(`http://localhost:3001/userInfo`, {
+        headers: {
+          Authorization: `${auth.state.token}`
+        }
+      })
+      .then(response => {
+        // await console.log(response);
+        commit("setUser", response.data);
+        return response.data
       });
   },
   fetchGalleries({ commit }) {
@@ -62,6 +77,9 @@ const mutations = {
   },
   plusCounter: state => {
     state.counter += 1;
+  },
+  setUser: (state, user) => {
+    state.user = user;
   }
 };
 
