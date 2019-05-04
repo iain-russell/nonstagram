@@ -1,23 +1,24 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const gallerySchema = new Schema({
   name: String,
-  text: String, 
   created_at: Date,
+  visible: {
+    type: Boolean,
+    default: true
+  },
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'user'
+    ref: "user"
   },
-  images: [{
-    type: Schema.Types.ObjectId,
-    ref: 'image'
-  }],
-  comments: [{
-    type: Schema.Types.ObjectId,
-    ref: 'comment'
-  }]
+  images: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "image"
+    }
+  ]
 });
 
-const Gallery = mongoose.model('gallery', gallerySchema);
+const Gallery = mongoose.model("gallery", gallerySchema);
 module.exports = Gallery;

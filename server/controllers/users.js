@@ -62,7 +62,6 @@ module.exports = {
   signIn: async (req, res, next) => {
     try {
       // Generate token
-      console.log(req.user);
       const token = signToken(req.user);
       res.status(200).json({ token });
     } catch (err) {

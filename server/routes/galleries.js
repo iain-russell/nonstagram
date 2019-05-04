@@ -21,6 +21,7 @@ router
   .post(passportJWT, GalleriesController.newGallery);
 
 router.route("/:galleryId").get(passportJWT, GalleriesController.getGallery);
+
 router
   .route("/:galleryId/upload-images")
   .post(passportJWT, GalleriesController.newGalleryImages)

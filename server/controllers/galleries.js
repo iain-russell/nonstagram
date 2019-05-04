@@ -99,7 +99,8 @@ module.exports = {
       );
       await newComment.save();
       const commentFullData = await Comment.findById(newComment._id).populate({
-        path: "user", select: '-password'
+        path: "user",
+        select: "-password"
       });
       return res.status(200).json({ commentFullData });
     } catch (err) {
@@ -108,7 +109,7 @@ module.exports = {
   },
   deleteComment: async (req, res, next) => {
     try {
-      const comment = await Comment.findByIdAndDelete(req.body.comment)
+      const comment = await Comment.findByIdAndDelete(req.body.comment);
     } catch (err) {
       next(err);
     }

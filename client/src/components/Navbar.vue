@@ -59,7 +59,7 @@
         <div class="right">
           <div class="navbar-item">
             <router-link to="/about">
-              <a class="button">About </a>
+              <a class="button" @click="toggleNavbar()">About </a>
             </router-link>
           </div>
         </div>
@@ -108,12 +108,14 @@ export default {
       "toggleUploader"
     ]),
     submitSignOut() {
+      this.toggleNavbar();
       this.resetGallery();
       this.resetGalleries();
       this.signOut();
       router.push("/");
     },
     openSignUp() {
+      this.toggleNavbar();
       this.$modal.open({
         parent: this,
         component: SignUpForm,
@@ -122,6 +124,7 @@ export default {
       });
     },
     openSignIn() {
+      this.toggleNavbar();
       this.$modal.open({
         parent: this,
         component: SignInForm,
@@ -130,6 +133,7 @@ export default {
       });
     },
     openCreateGallery() {
+      this.toggleNavbar();
       this.$modal.open({
         parent: this,
         component: CreateGallery,
@@ -138,12 +142,16 @@ export default {
       });
     },
     openUploadModal() {
+      this.toggleNavbar();
       this.$modal.open({
         parent: this,
         component: UploadImageModal,
         hasModalCard: false,
         props: {}
       });
+    },
+    toggleNavbar() {
+      this.showNav = !this.showNav;
     }
   }
 };
