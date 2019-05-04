@@ -119,6 +119,7 @@ export default {
       this.$modal.open({
         parent: this,
         component: SignUpForm,
+        scroll: "keep",
         hasModalCard: false,
         props: {}
       });
@@ -128,6 +129,7 @@ export default {
       this.$modal.open({
         parent: this,
         component: SignInForm,
+        scroll: "keep",
         hasModalCard: false,
         props: {}
       });
@@ -137,6 +139,7 @@ export default {
       this.$modal.open({
         parent: this,
         component: CreateGallery,
+        scroll: "keep",
         hasModalCard: false,
         props: {}
       });
@@ -146,6 +149,7 @@ export default {
       this.$modal.open({
         parent: this,
         component: UploadImageModal,
+        scroll: "keep",
         hasModalCard: false,
         props: {}
       });

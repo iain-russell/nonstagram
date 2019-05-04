@@ -65,6 +65,7 @@ export default {
       this.$modal.open({
         parent: this,
         component: CloseUp,
+        scroll:'keep',
         hasModalCard: false,
         props: { gallery: gallery }
       });

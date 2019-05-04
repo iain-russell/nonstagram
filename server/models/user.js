@@ -17,6 +17,10 @@ const userSchema = new Schema({
   galleries: [{
     type: Schema.Types.ObjectId,
     ref: 'gallery'
+  }],
+  comments: [{
+    type: Schema.Types.ObjectId,
+    ref: 'comment'
   }]
 });
 

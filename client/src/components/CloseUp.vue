@@ -18,8 +18,11 @@
           <hr />
           <div class="content" id="content-column">
             <!-- .comment-content -->
-            <article v-for="comment in gallery.comments" class="media"
-            v-if="comment.visible">
+            <article
+              v-for="comment in gallery.comments"
+              class="media"
+              v-if="comment.visible"
+            >
               <figure class="media-left ">
                 <div v-html="identicon(comment.user.email)"></div>
               </figure>
@@ -42,19 +45,18 @@
                 id="comment-delete-div"
                 v-if="compareUsers(comment.user._id)"
               >
-                <button
-                  class="delete"
-                  @click="
-                    deleteComment(comment)"
-                ></button>
+                <button class="delete" @click="deleteComment(comment)"></button>
               </div>
               <!-- /.delete -->
             </article>
             <!-- /.comment-content -->
 
             <!-- .newComment-content -->
-            <article v-for="comment in newComments" class="media"
-            v-if="comment.visible">
+            <article
+              v-for="comment in newComments"
+              class="media"
+              v-if="comment.visible"
+            >
               <figure class="media-left ">
                 <div v-html="identicon(comment.user.email)"></div>
               </figure>
@@ -135,10 +137,12 @@ export default {
       setTimeout(() => {
         this.fetchGalleries();
       }, 1000);
+    },
+    newComments() {
+      setTimeout(() => {
+        this.scrollToEnd();
+      }, 0);
     }
-  },
-  updated: function() {
-    this.scrollToEnd();
   },
   created: function() {
     this.compareUsers();
@@ -157,7 +161,7 @@ export default {
     async addComment() {
       const token = this.getToken;
       const { data } = await axios.post(
-        `http://localhost:3001/${this.gallery._id}`,
+        `http://localhost:3001/${this.gallery._id}/comments`,
         { content: this.comment },
         {
           headers: { Authorization: `${token}` }
@@ -275,11 +279,5 @@ section {
 }
 #comment-delete-div {
   margin-right: 10px;
-}
-.hide {
-  visibility: hidden;
-}
-::-webkit-scrollbar {
-  display: none;
 }
 </style>

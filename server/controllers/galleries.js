@@ -93,11 +93,13 @@ module.exports = {
         user: gallery.user,
         created_at: Date.now()
       });
-      await Gallery.findOneAndUpdate(
-        { _id: req.params.galleryId },
-        { $push: { comments: newComment } }
-      );
       await newComment.save();
+      gallery.comments.push(newComment);
+      await gallery.save();
+      // const fullGallery = await Gallery.findOneAndUpdate(
+      //   { _id: req.params.galleryId },
+      //   { $push: { comments: newComment } }
+      // );
       const commentFullData = await Comment.findById(newComment._id).populate({
         path: "user",
         select: "-password"

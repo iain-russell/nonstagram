@@ -22,15 +22,18 @@ router
 
 router.route("/userInfo").get(passportJWT, UsersController.getUser);
 
-router.route("/:galleryId").get(passportJWT, GalleriesController.getGallery);
-
-router.route("/:galleryId/comment").post(GalleriesController.newComment);
+router
+  .route("/:galleryId")
+  .get(passportJWT, GalleriesController.getGallery);
 
 router
   .route("/:galleryId/upload-images")
   .post(passportJWT, GalleriesController.newGalleryImages);
 
-router.route("/:galleryId/comments").delete(GalleriesController.deleteComment);
+router
+  .route("/:galleryId/comments")
+  .post(passportJWT, GalleriesController.newComment)
+  .delete(GalleriesController.deleteComment);
 
 router
   .route("/signup")

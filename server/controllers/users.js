@@ -1,5 +1,7 @@
 const JWT = require("jsonwebtoken");
 const User = require("../models/user");
+const FakerSeed = require("../helpers/fakerSeed");
+
 const { JWT_SECRET } = require("../configuration");
 
 signToken = user => {
@@ -55,6 +57,7 @@ module.exports = {
     });
     // const newUser = new User({ email, password });
     await newUser.save();
+    FakerSeed.seedUserGalleries(newUser);
     const token = signToken(newUser);
     res.status(200).json({ token });
   },
