@@ -74,6 +74,7 @@ module.exports = {
       gallery.save();
     });
     await user.save();
+    return user;
   },
   seedComments() {
     const comments = [];

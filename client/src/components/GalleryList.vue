@@ -1,10 +1,23 @@
 <template>
   <div class="container center">
     <section v-if="!isLoggedIn" class="hero">
-      <div class="hero-body">
-        <h1 class="has-text-dark title">Log in to get started!</h1>
+      <div class="hero-body ">
+        <h1 v-if="!isLoggingIn" class="has-text-dark title">
+          Log in to get started!
+        </h1>
+        <h1 v-if="isLoggingIn" class="has-text-dark title">
+          Generating and uploading images for nonstagram!
+        </h1>
       </div>
     </section>
+    <b-loading
+      :is-full-page="true"
+      :active.sync="isLoggingIn"
+      :can-cancel="true"
+    >
+      <b-icon pack="fas" icon="sync-alt" size="is-large" custom-class="fa-spin">
+      </b-icon>
+    </b-loading>
     <section class="section center" v-if="isLoggedIn">
       <div class="columns is-mobile is-multiline" id="main-column">
         <div
@@ -44,28 +57,39 @@ export default {
     this.getUserData();
   },
   computed: {
-    watchCounter() {
-      return this.$store.getters.getCounter;
-    },
     reverseGalleries() {
       return this.$store.getters.getGalleries.slice().reverse();
     },
-    ...mapGetters(["isLoggedIn", "getGalleries", "getCounter", "getUser"])
+    ...mapGetters([
+      "isLoggedIn",
+      "getGalleries",
+      "getCounter",
+      "getUser",
+      "isLoggingIn"
+    ])
   },
   watch: {
-    watchCounter() {
+    getCounter() {
       setTimeout(() => {
         this.fetchGalleries();
       }, 1000);
+    },
+    isLoggingIn() {
+      this.fetchGalleries();
     }
   },
   methods: {
-    ...mapActions(["fetchGallery", "fetchGalleries", "getUserData","incrementCounter"]),
+    ...mapActions([
+      "fetchGallery",
+      "fetchGalleries",
+      "getUserData",
+      "incrementCounter"
+    ]),
     openCloseUp(gallery) {
       this.$modal.open({
         parent: this,
         component: CloseUp,
-        scroll:'keep',
+        scroll: "keep",
         hasModalCard: false,
         props: { gallery: gallery }
       });
