@@ -30,7 +30,6 @@
                 <div class="content">
                   <p>
                     <strong>{{ formatEmail(comment.user.email) }}</strong>
-                    <small>@{{ formatEmail(comment.user.email) }}</small>
                     <br />
                     {{ comment.content }}
                     <br />
@@ -64,7 +63,6 @@
                 <div class="content">
                   <p>
                     <strong>{{ formatEmail(comment.user.email) }}</strong>
-                    <small>@{{ formatEmail(comment.user.email) }}</small>
                     <br />
                     {{ comment.content }}
                     <br />
@@ -188,8 +186,8 @@ export default {
       const container = this.$el.querySelector("#content-column");
       container.scrollTop = container.scrollHeight;
     },
-    async compareUsers(user) {
-      const currentUser = await this.getUser;
+    compareUsers(user) {
+      const currentUser = this.getUser;
       if (user === currentUser._id) {
         return true;
       } else {

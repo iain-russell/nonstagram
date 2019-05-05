@@ -23,6 +23,9 @@
           Passport and PassportJWT. User profile images are generated using
           jdenticon.
         </p>
+        <p>
+          Database info is seeded with Faker after sign up. The database is seeded with generated galleries, images, and comments.
+        </p>
       </div>
     </section>
   </div>

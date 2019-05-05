@@ -78,18 +78,26 @@ module.exports = {
   },
   seedComments() {
     const comments = [];
-    for (var i = 0; i < this.getRandomInt(); i++){
+    for (var i = 0; i < this.getRandomInt(); i++) {
       const user = this.seedUser();
       const comment = this.seedComment();
       comment.user = user;
       user.save();
       comment.save();
       comments.push(comment);
-    };
+    }
     return comments;
   },
   seedImages() {
     const imageData = [
+      {
+        key: "image-gallery-site/1557001690200",
+        name: "andrew-montgomery-40603-unsplash.jpg"
+      },
+      {
+        key: "image-gallery-site/1557001688595",
+        name: "raining-huang-31297-unsplash.jpg"
+      },
       {
         key: "image-gallery-site/1557001684191",
         name: "david-schultz-1475807-unsplash.jpg"
@@ -143,10 +151,6 @@ module.exports = {
         name: "michael-kooiman-1134654-unsplash.jpg"
       },
       {
-        key: "image-gallery-site/1557001687066",
-        name: "matthias-jordan-367209-unsplash.jpg"
-      },
-      {
         key: "image-gallery-site/1557001686625",
         name: "annie-spratt-1288465-unsplash.jpg"
       },
@@ -171,10 +175,6 @@ module.exports = {
         name: "ellena-mcguinness-1455796-unsplash.jpg"
       },
       {
-        key: "image-gallery-site/1557001690200",
-        name: "andrew-montgomery-40603-unsplash.jpg"
-      },
-      {
         key: "image-gallery-site/1557001690365",
         name: "wes-grant-312612-unsplash.jpg"
       },
@@ -183,8 +183,8 @@ module.exports = {
         name: "dmitry-sovyak-454058-unsplash.jpg"
       },
       {
-        key: "image-gallery-site/1557001688595",
-        name: "raining-huang-31297-unsplash.jpg"
+        key: "image-gallery-site/1557001687066",
+        name: "matthias-jordan-367209-unsplash.jpg"
       },
       {
         key: "image-gallery-site/1557001688544",

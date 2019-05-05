@@ -1,7 +1,7 @@
 <template>
   <div class="container center">
-    <section v-if="!isLoggedIn" class="hero">
-      <div class="hero-body ">
+    <section v-if="!isLoggedIn" class="hero" id="hero-section">
+      <div class="hero-body center">
         <h1 v-if="!isLoggingIn" class="has-text-dark title">
           Log in to get started!
         </h1>
@@ -112,6 +112,9 @@ img {
 }
 #gallery-list-name {
   font-family: "Nunito", sans-serif;
+}
+#hero-section{
+  height: 80vh;
 }
 @media (max-width: 768px) {
   #main-column {
