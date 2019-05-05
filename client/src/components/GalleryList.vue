@@ -70,8 +70,21 @@ export default {
     reverseGalleries() {
       return this.$store.getters.getGalleries.slice().reverse();
     },
-    firstLogin() {
-      if (this.isLoggedIn) {
+    getUserGalleries() {
+      return this.$store.getters.getUser.galleries;
+    },
+    compareGalleries() {
+      if (
+        this.reverseGalleries.length !=
+        this.$store.getters.getUser.galleries.length
+      ) {
+        this.fetchGalleries();
+        this.getUserData();
+        this.incrementCounter();
+      }
+    },
+    fetchOnLogin() {
+      if (this.reverseGalleries.length === 0 && this.isLoggedIn === true) {
         this.getUserData();
       }
     },
@@ -88,10 +101,7 @@ export default {
     getCounter() {
       setTimeout(() => {
         this.fetchGalleries();
-      }, 1000);
-    },
-    getUser() {
-      this.fetchGalleries();
+      }, 3000);
     }
   },
   methods: {
