@@ -46,11 +46,9 @@ module.exports = {
   },
   deleteGallery: async (req, res, next) => {
     try {
-      const { galleryId } = req.params;
-      const gallery = await Gallery.findById(galleryId);
+      const gallery = await Gallery.findByIdAndDelete(req.params.galleryId);
       const userId = gallery.user;
       const user = await User.findById(userId);
-      await gallery.remove();
       user.galleries.pull(gallery);
       await user.save();
       res.status(200).json({ success: true });

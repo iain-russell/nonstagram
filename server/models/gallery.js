@@ -9,6 +9,10 @@ const gallerySchema = new Schema({
     type: Boolean,
     default: true
   },
+  deleteVisible: {
+    type: Boolean,
+    default: false
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'user'

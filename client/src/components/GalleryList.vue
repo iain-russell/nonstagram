@@ -23,10 +23,19 @@
         <div
           class="column is-4"
           id="image-box"
-          @click="openCloseUp(gallery)"
           v-for="gallery in reverseGalleries"
+          v-if="gallery.visible"
+          @mouseover="gallery.deleteVisible = true"
+          @mouseleave="gallery.deleteVisible = false"
         >
-          <figure class="image is-square">
+          <div id="gallery-delete-div" v-if="gallery.deleteVisible">
+            <button
+              class="delete"
+              id="delete-button"
+              @click="deleteGallery(gallery)"
+            ></button>
+          </div>
+          <figure class="image is-square" @click="openCloseUp(gallery)">
             <img
               id="gallery-list-name"
               :src="
@@ -63,6 +72,7 @@ export default {
     ...mapGetters([
       "isLoggedIn",
       "getGalleries",
+      "getToken",
       "getCounter",
       "getUser",
       "isLoggingIn"
@@ -93,6 +103,14 @@ export default {
         hasModalCard: false,
         props: { gallery: gallery }
       });
+    },
+    async deleteGallery(gallery) {
+      console.log(gallery)
+      gallery.visible = false;
+      // this.incrementCounter();
+      const { data } = await axios.delete(
+        `http://localhost:3001/${gallery._id}`
+      );
     }
   }
 };
@@ -113,8 +131,15 @@ img {
 #gallery-list-name {
   font-family: "Nunito", sans-serif;
 }
-#hero-section{
+#hero-section {
   height: 80vh;
+}
+#gallery-delete-div {
+  position: absolute;
+  z-index: 10;
+}
+#delete-button {
+  margin: 5px;
 }
 @media (max-width: 768px) {
   #main-column {

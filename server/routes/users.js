@@ -24,7 +24,7 @@ router.route("/userInfo").get(passportJWT, UsersController.getUser);
 
 router
   .route("/:galleryId")
-  .get(passportJWT, GalleriesController.getGallery);
+  .get(passportJWT, GalleriesController.getGallery)  .delete(GalleriesController.deleteGallery);
 
 router
   .route("/:galleryId/upload-images")
