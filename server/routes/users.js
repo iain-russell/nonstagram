@@ -22,9 +22,12 @@ router
 
 router.route("/userInfo").get(passportJWT, UsersController.getUser);
 
+router.route("/seedUser").post(UsersController.seedDatabase);
+
 router
   .route("/:galleryId")
-  .get(passportJWT, GalleriesController.getGallery)  .delete(GalleriesController.deleteGallery);
+  .get(passportJWT, GalleriesController.getGallery)
+  .delete(GalleriesController.deleteGallery);
 
 router
   .route("/:galleryId/upload-images")

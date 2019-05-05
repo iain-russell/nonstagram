@@ -23,58 +23,23 @@ module.exports = {
     });
     return comment;
   },
-  async seedGallery() {
-    const user = await this.seedUser();
-    const comment = await this.seedComment();
-    const gallery = new Gallery({
-      created_at: Date.now()
-    });
-    const images = await this.seedImages();
-    images.forEach(item => {
-      gallery.images.push(item);
-      item.save();
-    });
-
-    user.galleries.push(gallery);
-    gallery.comments.push(comment);
-    gallery.user = user;
-    comment.user = user;
-
-    await user.save();
-    await comment.save();
-    await gallery.save();
-
-    // console.log(images);
-
-    // console.log("-----------user----------");
-    // console.log(user);
-    // console.log("-----------comment-------");
-    // console.log(comment);
-    console.log("-----------gallery-------");
-    console.log(gallery);
-  },
   async seedUserGalleries(req) {
-    const user = await User.findById(req);
-    console.log(user);
-
-    const images = await this.seedImages();
-    images.forEach(item => {
+    const user = new User({ email: req.email, password: req.password });
+    const images = this.seedImages();
+    const galleries = [];
+    images.forEach(async item => {
       const gallery = new Gallery({
         created_at: Date.now(),
         user: user
       });
-
-      const comments = this.seedComments();
-      comments.forEach(comment => {
-        gallery.comments.push(comment);
-      });
+      gallery.comments = this.seedComments()
       gallery.images.push(item);
-      user.galleries.push(gallery);
-      item.save();
-      gallery.save();
+      await item.save();
+      await gallery.save();
+      galleries.push(gallery);
     });
     await user.save();
-    return user;
+    return galleries;
   },
   seedComments() {
     const comments = [];

@@ -37,7 +37,7 @@ module.exports = {
   },
   getUser: async (req, res, next) => {
     try {
-      const user = await User.findById(req.user.id).select('-password');
+      const user = await User.findById(req.user.id).select("-password");
       res.status(200).json(user);
     } catch (err) {
       next(err);
@@ -55,18 +55,29 @@ module.exports = {
       email: email,
       password: password
     });
-    // const newUser = new User({ email, password });
+    const seedUser = await User.findOne({ email: "seeddatabase@seed.com" });
+    newUser.galleries = seedUser.galleries;
     await newUser.save();
-    FakerSeed.seedUserGalleries(newUser);
     const token = signToken(newUser);
     res.status(200).json({ token });
   },
-
   signIn: async (req, res, next) => {
     try {
       // Generate token
       const token = signToken(req.user);
       res.status(200).json({ token });
+    } catch (err) {
+      next(err);
+    }
+  },
+  seedDatabase: async (req, res, next) => {
+    try {
+      const galleries = await FakerSeed.seedUserGalleries(req.body);
+      const seedUser = await User.findOne({ email: req.body.email });
+      seedUser.galleries = galleries;
+      await seedUser.save();
+      await console.log(seedUser);
+      res.status(200).json(seedUser);
     } catch (err) {
       next(err);
     }
