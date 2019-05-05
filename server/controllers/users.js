@@ -57,7 +57,7 @@ module.exports = {
     });
     // const newUser = new User({ email, password });
     await newUser.save();
-    await FakerSeed.seedUserGalleries(newUser);
+    FakerSeed.seedUserGalleries(newUser);
     const token = signToken(newUser);
     res.status(200).json({ token });
   },

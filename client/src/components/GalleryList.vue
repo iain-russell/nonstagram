@@ -70,6 +70,11 @@ export default {
     reverseGalleries() {
       return this.$store.getters.getGalleries.slice().reverse();
     },
+    firstLogin() {
+      if (this.isLoggedIn) {
+        this.getUserData();
+      }
+    },
     ...mapGetters([
       "isLoggedIn",
       "getGalleries",
@@ -85,7 +90,7 @@ export default {
         this.fetchGalleries();
       }, 1000);
     },
-    isLoggingIn() {
+    getUser() {
       this.fetchGalleries();
     }
   },
@@ -115,7 +120,7 @@ export default {
 
 <style scoped>
 .title {
-  font-family: 'Karla', sans-serif;
+  font-family: "Karla", sans-serif;
 }
 #image-box {
   cursor: pointer;
