@@ -23,7 +23,8 @@
         <div
           class="column is-4"
           id="image-box"
-          v-for="gallery in reverseGalleries"
+          v-for="(gallery, index) in reverseGalleries"
+          v-bind:key="index"
           v-if="gallery.visible"
           @mouseover="gallery.deleteVisible = true"
           @mouseleave="gallery.deleteVisible = false"
@@ -35,7 +36,7 @@
               @click="deleteGallery(gallery)"
             ></button>
           </div>
-          <figure class="image is-square" @click="openCloseUp(gallery)">
+          <figure class="image is-square" @click="openCloseUp(gallery, index)">
             <img
               id="gallery-list-name"
               :src="
@@ -54,7 +55,7 @@
 import axios from "axios";
 import CloseUp from "./CloseUp";
 
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   Name: "GalleryList",
@@ -95,7 +96,7 @@ export default {
       "getUserData",
       "incrementCounter"
     ]),
-    openCloseUp(gallery) {
+    openCloseUp(gallery, index) {
       this.$modal.open({
         parent: this,
         component: CloseUp,
@@ -105,18 +106,17 @@ export default {
       });
     },
     async deleteGallery(gallery) {
-      console.log(gallery)
       gallery.visible = false;
-      // this.incrementCounter();
-      const { data } = await axios.delete(
-        `http://localhost:3001/${gallery._id}`
-      );
+      axios.delete(`http://localhost:3001/${gallery._id}`);
     }
   }
 };
 </script>
 
 <style scoped>
+.title {
+  font-family: 'Karla', sans-serif;
+}
 #image-box {
   cursor: pointer;
   padding: 15px;

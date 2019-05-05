@@ -82,7 +82,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import { router } from "../main.js";
 import SignInForm from "./SignInForm";
 import SignUpForm from "./SignUpForm";
@@ -92,7 +91,6 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Navbar",
-  components: { SignInForm },
   data() {
     return {
       showNav: false
@@ -134,16 +132,6 @@ export default {
         props: {}
       });
     },
-    openCreateGallery() {
-      this.toggleNavbar();
-      this.$modal.open({
-        parent: this,
-        component: CreateGallery,
-        scroll: "keep",
-        hasModalCard: false,
-        props: {}
-      });
-    },
     openUploadModal() {
       this.toggleNavbar();
       this.$modal.open({
@@ -168,6 +156,9 @@ a {
 .fa-camera {
   padding-left: 10px;
   padding-right: 10px;
+}
+.subtitle {
+  font-family: 'Karla', sans-serif;
 }
 @media (min-width: 1024px) {
   .navbar {

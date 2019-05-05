@@ -6,6 +6,7 @@
           <div id="image-div">
             <figure class="image is-4by5" id="figure-image">
               <img
+                :title="gallery.images[0].name"
                 :src="
                   'https://s3.eu-west-2.amazonaws.com/django-static-practice1939/' +
                     gallery.images[0].key
@@ -20,6 +21,7 @@
             <!-- .comment-content -->
             <article
               v-for="comment in gallery.comments"
+              v-bind:key="comment._id"
               class="media"
               v-if="comment.visible"
             >
@@ -53,6 +55,7 @@
             <!-- .newComment-content -->
             <article
               v-for="comment in newComments"
+              v-bind:key="comment._id"
               class="media"
               v-if="comment.visible"
             >
@@ -148,9 +151,6 @@ export default {
   computed: mapGetters(["getToken", "getUser"]),
   methods: {
     ...mapActions(["incrementCounter", "fetchGalleries"]),
-    hey() {
-      console.log("hey");
-    },
     shiftForNewLine() {
       if (!event.shiftKey) {
         this.addComment();
@@ -195,13 +195,11 @@ export default {
       }
     },
     async deleteComment(comment) {
-      const token = this.getToken;
       comment.visible = false;
       this.incrementCounter();
-      const { data } = await axios.delete(
-        `http://localhost:3001/${this.gallery._id}/comments`,
-        { data: { comment } }
-      );
+      axios.delete(`http://localhost:3001/${this.gallery._id}/comments`, {
+        data: { comment }
+      });
     }
   }
 };
