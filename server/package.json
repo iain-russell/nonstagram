@@ -6,8 +6,7 @@
   "scripts": {
     "start-dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "forever start index.js forever start --minUptime 1000 --spinSleepTime 1000 app.js
-"
+    "start": "forever start index.js forever start --minUptime 1000 --spinSleepTime 1000 app.js"
   },
   "author": "",
   "license": "ISC",
