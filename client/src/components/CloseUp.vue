@@ -157,16 +157,17 @@ export default {
       }
     },
     async addComment() {
+      const newComment = this.comment;
+      this.comment = "";
       const token = this.getToken;
       const { data } = await axios.post(
         `http://localhost:3001/${this.gallery._id}/comments`,
-        { content: this.comment, user: this.getUser._id },
+        { content: newComment, user: this.getUser._id },
         {
           headers: { Authorization: `${token}` }
         }
       );
       this.newComments.push(data.commentFullData);
-      this.comment = "";
       this.incrementCounter();
     },
     identicon(username) {
