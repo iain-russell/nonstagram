@@ -29,6 +29,9 @@ router
   .get(passportJWT, GalleriesController.getGallery)
   .delete(GalleriesController.deleteGallery);
 
+router.route("/:galleryId/pull")
+  .post(GalleriesController.pullGallery);
+
 router
   .route("/:galleryId/upload-images")
   .post(passportJWT, GalleriesController.newGalleryImages);

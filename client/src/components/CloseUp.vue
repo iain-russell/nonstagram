@@ -160,7 +160,7 @@ export default {
       const token = this.getToken;
       const { data } = await axios.post(
         `http://localhost:3001/${this.gallery._id}/comments`,
-        { content: this.comment },
+        { content: this.comment, user: this.getUser._id },
         {
           headers: { Authorization: `${token}` }
         }

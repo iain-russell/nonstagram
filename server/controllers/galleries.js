@@ -56,6 +56,17 @@ module.exports = {
       next(err);
     }
   },
+  pullGallery: async (req, res, next) => {
+    try {
+      const gallery = await Gallery.findById(req.params.galleryId);
+      const user = await User.findById(req.body.user);
+      user.galleries.pull(gallery);
+      await user.save();
+      res.status(200).json({ success: true });
+    } catch (err) {
+      next(err);
+    }
+  },
   newGalleryImages: async (req, res, next) => {
     try {
       const gallery = await Gallery.findById(req.params.galleryId);
@@ -84,11 +95,12 @@ module.exports = {
   },
   newComment: async (req, res, next) => {
     try {
+      const user = await User.findById(req.body.user);
       const gallery = await Gallery.findById(req.params.galleryId);
-      const newComment = new Comment({
+      const newComment = await new Comment({
         content: req.body.content,
         gallery: gallery,
-        user: gallery.user,
+        user: user,
         created_at: Date.now()
       });
       await newComment.save();

@@ -56,24 +56,12 @@ module.exports = {
   seedImages() {
     const imageData = [
       {
-        key: "image-gallery-site/1557001690200",
-        name: "andrew-montgomery-40603-unsplash.jpg"
-      },
-      {
-        key: "image-gallery-site/1557001688595",
-        name: "raining-huang-31297-unsplash.jpg"
-      },
-      {
         key: "image-gallery-site/1557001684191",
         name: "david-schultz-1475807-unsplash.jpg"
       },
       {
         key: "image-gallery-site/1557001683923",
         name: "mohammad-aqhib-1480511-unsplash.jpg"
-      },
-      {
-        key: "image-gallery-site/1557001683924",
-        name: "tamas-debreczeni-1226946-unsplash.jpg"
       },
       {
         key: "image-gallery-site/1557001685052",
@@ -120,16 +108,8 @@ module.exports = {
         name: "annie-spratt-1288465-unsplash.jpg"
       },
       {
-        key: "image-gallery-site/1557001687009",
-        name: "greg-rosenke-1406864-unsplash.jpg"
-      },
-      {
         key: "image-gallery-site/1557001688299",
         name: "bruce-warrington-1431472-unsplash.jpg"
-      },
-      {
-        key: "image-gallery-site/1557001689260",
-        name: "mickey-o-neil-36549-unsplash.jpg"
       },
       {
         key: "image-gallery-site/1557001689051",

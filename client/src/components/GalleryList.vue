@@ -1,5 +1,5 @@
 <template>
-  <div class="container center">
+  <div class="container">
     <section v-if="!isLoggedIn" class="hero" id="hero-section">
       <div class="hero-body center">
         <h1 v-if="!isLoggingIn" class="has-text-dark title">
@@ -18,6 +18,11 @@
       <b-icon pack="fas" icon="sync-alt" size="is-large" custom-class="fa-spin">
       </b-icon>
     </b-loading>
+    <section class="hero" v-if="dataNeedsSeeds && isLoggedIn">
+      <div class="hero-body center">
+        <button class="button" @click="seedDatabase()">Seed Database</button>
+      </div>
+    </section>
     <section class="section center" v-if="isLoggedIn">
       <div class="columns is-mobile is-multiline" id="main-column">
         <div
@@ -73,19 +78,22 @@ export default {
     getUserGalleries() {
       return this.$store.getters.getUser.galleries;
     },
+    dataNeedsSeeds() {
+      if (this.getUser === "") {
+        return true;
+      } else {
+        return false;
+      }
+    },
     compareGalleries() {
       if (
+        !this.dataNeedsSeeds &&
         this.reverseGalleries.length !=
-        this.$store.getters.getUser.galleries.length
+          this.$store.getters.getUser.galleries.length
       ) {
         this.fetchGalleries();
         this.getUserData();
         this.incrementCounter();
-      }
-    },
-    fetchOnLogin() {
-      if (this.reverseGalleries.length === 0 && this.isLoggedIn === true) {
-        this.getUserData();
       }
     },
     ...mapGetters([
@@ -101,7 +109,8 @@ export default {
     getCounter() {
       setTimeout(() => {
         this.fetchGalleries();
-      }, 3000);
+        this.getUserData();
+      }, 3500);
     }
   },
   methods: {
@@ -122,7 +131,18 @@ export default {
     },
     async deleteGallery(gallery) {
       gallery.visible = false;
-      axios.delete(`http://localhost:3001/${gallery._id}`);
+      if (gallery.user._id === this.getUser._id) {
+        axios.delete(`http://localhost:3001/${gallery._id}`);
+      } else {
+        axios.post(`http://localhost:3001/${gallery._id}/pull`, {
+          user: this.getUser._id
+        });
+      }
+    },
+    async seedDatabase() {
+      this.incrementCounter();
+      this.fetchGalleries();
+      this.getUserData();
     }
   }
 };
