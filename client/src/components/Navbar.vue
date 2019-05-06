@@ -38,13 +38,13 @@
         <!-- /.sign-up -->
 
         <!-- .log-in -->
-        <div class="right">
+        <!-- <div class="right">
           <div class="navbar-item" v-if="!isLoggedIn">
             <button @click="openSignIn()" class="button">
               Log In
             </button>
           </div>
-        </div>
+        </div> -->
         <!-- /.log-in -->
 
         <!-- .upload-images -->
@@ -69,8 +69,8 @@
         <div class="right">
           <div class="navbar-item" v-if="isLoggedIn">
             <router-link to="/">
-              <button v-if="isLoggedIn" class="button" @click="submitSignOut()">
-                Logout
+              <button v-if="isLoggedIn" class="button" @click="submitSignOut(getUser)">
+                Logout/Delete User
               </button>
             </router-link>
           </div>
@@ -96,7 +96,7 @@ export default {
       showNav: false
     };
   },
-  computed: mapGetters(["isLoggedIn", "isGallerySelected"]),
+  computed: mapGetters(["isLoggedIn", "isGallerySelected", "getUser"]),
   methods: {
     ...mapActions([
       "signOut",
@@ -105,12 +105,10 @@ export default {
       "fetchGalleries",
       "toggleUploader"
     ]),
-    submitSignOut() {
-      this.toggleNavbar();
-      this.resetGallery();
-      this.resetGalleries();
-      this.signOut();
+    submitSignOut(user) {
+      this.signOut(user);
       router.push("/");
+      location.reload();
     },
     openSignUp() {
       this.toggleNavbar();

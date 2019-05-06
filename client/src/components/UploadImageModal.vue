@@ -33,7 +33,7 @@ export default {
   created: function() {},
   computed: mapGetters(["getToken"]),
   methods: {
-    ...mapActions(["fetchGallery", "incrementCounter"]),
+    ...mapActions(["incrementCounter"]),
     async createGallery() {
       const { data } = await axios.post(
         "http://localhost:3001",

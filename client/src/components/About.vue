@@ -25,6 +25,7 @@
         </p>
         <p>
           Database info is seeded with Faker after sign up. The database is seeded with generated galleries, images, and comments.
+          This website is just an example project, so user data is deleted on sign out.
         </p>
       </div>
     </section>

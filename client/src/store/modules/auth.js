@@ -32,7 +32,8 @@ const actions = {
       router.push("/");
     });
   },
-  signOut: ({ commit }) => {
+  async signOut({ commit }, user) {
+    axios.post(`http://localhost:3001/wipeUser`, { user: user });
     commit("setToken", null);
     window.localStorage.removeItem("access_token");
     router.push("/");

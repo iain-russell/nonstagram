@@ -63,7 +63,7 @@ import axios from "axios";
 import { router } from "../main.js";
 import SignInForm from "./SignInForm";
 
-import { mapState, mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   Name: "SignUp",
@@ -76,9 +76,8 @@ export default {
       token: ""
     };
   },
-  computed: mapGetters(["isLoggedIn"]),
   methods: {
-    ...mapActions(["signUp", "signOut"]),
+    ...mapActions(["signUp"]),
     submitSignUp() {
       if (this.password === this.passwordConfirm) {
         this.signUp({

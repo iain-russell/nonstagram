@@ -105,7 +105,9 @@ module.exports = {
       });
       await newComment.save();
       gallery.comments.push(newComment);
+      user.comments.push(newComment);
       await gallery.save();
+      await user.save();
       // const fullGallery = await Gallery.findOneAndUpdate(
       //   { _id: req.params.galleryId },
       //   { $push: { comments: newComment } }
@@ -122,6 +124,18 @@ module.exports = {
   deleteComment: async (req, res, next) => {
     try {
       const comment = await Comment.findByIdAndDelete(req.body.comment);
+    } catch (err) {
+      next(err);
+    }
+  },
+  wipeUser: async (req, res, next) => {
+    try {
+      user = await User.findById(req.body.user._id);
+      user.comments.forEach(async comment => {
+        await Comment.findByIdAndDelete(comment);
+      });
+      await User.findByIdAndDelete(req.body.user._id);
+      return res.status(200).json({ success: true });
     } catch (err) {
       next(err);
     }

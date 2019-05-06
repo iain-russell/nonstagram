@@ -1,6 +1,5 @@
 import axios from "axios";
 import auth from "./auth";
-import { router } from "../../main.js";
 
 const state = {
   gallery: "",
@@ -18,17 +17,6 @@ const getters = {
 };
 
 const actions = {
-  async fetchGallery({ commit }, gallery) {
-    await axios
-      .get(`http://localhost:3001/${gallery._id}`, {
-        headers: { Authorization: `${auth.state.token}` }
-      })
-      .then(response => {
-        commit("setGallery", response.data);
-        router.push("/gallery");
-        return response.data;
-      });
-  },
   async getUserData({ commit }) {
     await axios
       .get(`http://localhost:3001/userInfo`, {
@@ -37,7 +25,6 @@ const actions = {
         }
       })
       .then(response => {
-        // await console.log(response);
         commit("setUser", response.data);
         return response.data
       });

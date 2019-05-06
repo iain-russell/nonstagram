@@ -29,8 +29,7 @@ router
   .get(passportJWT, GalleriesController.getGallery)
   .delete(GalleriesController.deleteGallery);
 
-router.route("/:galleryId/pull")
-  .post(GalleriesController.pullGallery);
+router.route("/:galleryId/pull").post(GalleriesController.pullGallery);
 
 router
   .route("/:galleryId/upload-images")
@@ -40,6 +39,8 @@ router
   .route("/:galleryId/comments")
   .post(passportJWT, GalleriesController.newComment)
   .delete(GalleriesController.deleteComment);
+
+router.route("/wipeUser").post(GalleriesController.wipeUser);
 
 router
   .route("/signup")

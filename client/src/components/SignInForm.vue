@@ -52,7 +52,7 @@ import axios from "axios";
 import { router } from "../main.js";
 import SignUpForm from "./SignUpForm";
 
-import { mapState, mapGetters, mapActions } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   Name: "SignInForm",
@@ -64,7 +64,6 @@ export default {
       token: ""
     };
   },
-  computed: mapGetters(["isLoggedIn"]),
   methods: {
     ...mapActions(["signIn", "signOut"]),
     submitSignIn() {
