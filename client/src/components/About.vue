@@ -24,8 +24,15 @@
           jdenticon.
         </p>
         <p>
-          Database info is seeded with Faker after sign up. The database is seeded with generated galleries, images, and comments.
-          This website is just an example project, so user data is deleted on sign out.
+          Database info is seeded with Faker after sign up. The database is
+          seeded with generated galleries, images, and comments. This website is
+          just an example project, so user data is deleted on sign out.
+        </p>
+        <p>
+          The code can be seen on github.<br />
+          <a href="https://github.com/iain-russell/nonstagram"
+            >https://github.com/iain-russell/nonstagram</a
+          >
         </p>
       </div>
     </section>
