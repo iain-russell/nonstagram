@@ -3,7 +3,7 @@
     <section v-if="!isLoggedIn" class="hero" id="hero-section">
       <div class="hero-body center">
         <h1 v-if="!isLoggingIn" class="has-text-dark title">
-          Log in to get started!
+          Sign up to get started!
         </h1>
         <h1 v-if="isLoggingIn" class="has-text-dark title">
           Generating and uploading images for nonstagram!
