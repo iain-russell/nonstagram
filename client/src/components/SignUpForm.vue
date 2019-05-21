@@ -24,19 +24,7 @@
                   type="password"
                   :value="password"
                   v-model="password"
-                  password-reveal
                   placeholder="Your password"
-                  required
-                >
-                </b-input>
-              </b-field>
-              <b-field label="Confirm Password">
-                <b-input
-                  type="password"
-                  :value="passwordConfirm"
-                  v-model="passwordConfirm"
-                  password-reveal
-                  placeholder="Confirm password"
                   required
                 >
                 </b-input>
@@ -45,9 +33,6 @@
             <footer class="modal-card-foot">
               <button class="button" type="button" @click="$parent.close()">
                 Close
-              </button>
-              <button class="button" type="button" @click="switchSignIn">
-                Sign In
               </button>
               <button class="button is-primary" type="submit">Sign Up</button>
             </footer>
@@ -71,41 +56,19 @@ export default {
     return {
       email: "",
       password: "",
-      passwordConfirm: "",
-      passwordNotMatching: false,
       token: ""
     };
   },
   methods: {
     ...mapActions(["signUp"]),
     submitSignUp() {
-      if (this.password === this.passwordConfirm) {
         this.signUp({
           email: this.email,
           password: this.password
         });
         this.$parent.close();
         this.$snackbar.open(`Successfully signed up with ${this.email}`);
-      } else {
-        this.passwordNotMatching = true;
-        this.$snackbar.open({
-          duration: 3000,
-          message: "Incorrect sign up info",
-          type: "is-danger",
-          actionText: "Ok",
-          queue: false
-        });
-      }
     },
-    switchSignIn() {
-      this.$parent.close();
-      this.$modal.open({
-        parent: this,
-        component: SignInForm,
-        hasModalCArd: true,
-        props: {}
-      });
-    }
   }
 };
 </script>

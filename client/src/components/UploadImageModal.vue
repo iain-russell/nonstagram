@@ -3,7 +3,7 @@
     <div class="modal-card">
       <section class="modal-card-body">
 
-        <div class="dropper">
+        <div class="dropper" v-if="!uploadingImages">
           <input
             type="file"
             @change="uploadImages($event.target.files)"

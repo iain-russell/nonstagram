@@ -131,7 +131,7 @@ module.exports = {
   wipeUser: async (req, res, next) => {
     try {
       user = await User.findById(req.body.user._id);
-      user.comments.forEach(async comment => {
+      await user.comments.forEach(async comment => {
         await Comment.findByIdAndDelete(comment);
       });
       await User.findByIdAndDelete(req.body.user._id);

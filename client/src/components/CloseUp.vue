@@ -288,7 +288,7 @@ section {
     height: 100%;
   }
   #content-column {
-    height: 100vh;
+    height: 90vh;
   }
 }
 </style>
