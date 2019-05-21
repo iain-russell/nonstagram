@@ -19,7 +19,7 @@ const getters = {
 const actions = {
   async getUserData({ commit }) {
     await axios
-      .get(`http://localhost:3001/userInfo`, {
+      .get(`http://35.178.179.163:3001/userInfo`, {
         headers: {
           Authorization: `${auth.state.token}`
         }
@@ -31,7 +31,7 @@ const actions = {
   },
   fetchGalleries({ commit }) {
     axios
-      .get("http://localhost:3001/", {
+      .get("http://35.178.179.163:3001/", {
         headers: {
           Authorization: `${auth.state.token}`
         }

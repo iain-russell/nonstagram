@@ -110,11 +110,12 @@ export default {
       setTimeout(() => {
         this.fetchGalleries();
         this.getUserData();
-      }, 3500);
+      }, 300);
     }
   },
   methods: {
     ...mapActions([
+      "fetchGallery",
       "fetchGalleries",
       "getUserData",
       "incrementCounter"
@@ -131,11 +132,9 @@ export default {
     async deleteGallery(gallery) {
       gallery.visible = false;
       if (gallery.user._id === this.getUser._id) {
-        axios.delete(`http://localhost:3001/${gallery._id}`);
+        axios.delete(`http://35.178.179.163:3001/${gallery._id}`);
       } else {
-        axios.post(`http://localhost:3001/${gallery._id}/pull`, {
-          user: this.getUser._id
-        });
+        axios.delete(`http://35.178.179.163:3001/${gallery._id}/pull`);
       }
     },
     async seedDatabase() {

@@ -14,9 +14,9 @@ const getters = {
 };
 
 const actions = {
-  signUp({ commit }, data) {
+  async signUp({ commit }, data) {
     commit("setLoggingIn", true);
-    axios.post("http://localhost:3001/signup", { ...data }).then(response => {
+    await axios.post("http://35.178.179.163:3001/signup", { ...data }).then(response => {
       const accessToken = response.data.token;
       commit("setToken", accessToken);
       window.localStorage.setItem("access_token", accessToken);
@@ -25,7 +25,7 @@ const actions = {
     });
   },
   signIn({ commit }, data) {
-    axios.post("http://localhost:3001/signin", { ...data }).then(response => {
+    axios.post("http://35.178.179.163:3001/signin", { ...data }).then(response => {
       const accessToken = response.data.token;
       commit("setToken", accessToken);
       window.localStorage.setItem("access_token", accessToken);
@@ -33,7 +33,7 @@ const actions = {
     });
   },
   async signOut({ commit }, user) {
-    axios.post(`http://localhost:3001/wipeUser`, { user: user });
+    axios.post(`http://35.178.179.163:3001/wipeUser`, { user: user });
     commit("setToken", null);
     window.localStorage.removeItem("access_token");
     router.push("/");

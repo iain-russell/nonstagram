@@ -2,6 +2,7 @@
   <div class="section center">
     <div class="modal-card">
       <section class="modal-card-body">
+
         <div class="dropper">
           <input
             type="file"
@@ -11,8 +12,16 @@
           />
           <i class="fas fa-cloud-upload-alt fa-5x"></i>
           <br />
-          <span><button style="margin-right: 5px;">Browse</button> or drag files here!</span>
+          <span
+            ><button style="margin-right: 5px;">Browse</button> or drag files
+            here!</span
+          >
         </div>
+        <p v-if="uploadingImages" class="progress-bar">
+          <progress class="progress is-primary" :value="progress" max="100">
+            {{ progress }} %
+          </progress>
+        </p>
       </section>
     </div>
   </div>
@@ -28,6 +37,8 @@ export default {
 
   data() {
     return {
+      uploadingImages: false,
+      progress: 0
     };
   },
   created: function() {},
@@ -35,8 +46,9 @@ export default {
   methods: {
     ...mapActions(["incrementCounter"]),
     async createGallery() {
+      this.uploadingImages = true;
       const { data } = await axios.post(
-        "http://localhost:3001",
+        "http://35.178.179.163:3001",
         { name: this.galleryName },
         {
           headers: {
@@ -49,26 +61,32 @@ export default {
     async uploadImages(images) {
       const gallery = await this.createGallery();
       const token = this.getToken;
-      Array.from(images).map(image => {
+      Array.from(images).map(async image => {
         const formData = new FormData();
         formData.append("image", image);
-        axios.post(
-          `http://localhost:3001/gallery/${gallery._id}/upload-images`,
-          formData,
-          {
-            headers: { Authorization: `${token}` }
-          }
-        );
+        await axios
+          .post(
+            `http://35.178.179.163:3001/gallery/${gallery._id}/upload-images`,
+            formData,
+            {
+              onUploadProgress: e =>
+                (this.progress = Math.round((e.loaded * 100) / e.total)),
+              headers: { Authorization: `${token}` }
+            }
+          )
+          .then(response => {
+            this.incrementCounter();
+            this.uploadingImages = false;
+            this.$parent.close();
+            this.$toast.open({
+              duration: 3000,
+              message: "Image uploaded!",
+              type: "is-success",
+              position: "is-bottom"
+            });
+          });
       });
-      this.$parent.close();
-      this.$toast.open({
-        duration: 3000,
-        message: "Image uploaded!",
-        type: "is-success",
-        position: "is-bottom"
-      });
-      this.incrementCounter();
-    },
+    }
   }
 };
 </script>

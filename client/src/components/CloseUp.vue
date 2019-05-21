@@ -161,7 +161,7 @@ export default {
       this.comment = "";
       const token = this.getToken;
       const { data } = await axios.post(
-        `http://localhost:3001/${this.gallery._id}/comments`,
+        `http://35.178.179.163:3001/${this.gallery._id}/comments`,
         { content: newComment, user: this.getUser._id },
         {
           headers: { Authorization: `${token}` }
@@ -198,7 +198,7 @@ export default {
     async deleteComment(comment) {
       comment.visible = false;
       this.incrementCounter();
-      axios.delete(`http://localhost:3001/${this.gallery._id}/comments`, {
+      axios.delete(`http://35.178.179.163:3001/${this.gallery._id}/comments`, {
         data: { comment }
       });
     }
@@ -276,5 +276,19 @@ section {
 }
 #comment-delete-div {
   margin-right: 10px;
+}
+@media (max-width: 768px) {
+  .modal-card {
+    overflow: visible;
+  }
+  #section-body {
+    height: 100vh;
+  }
+  #media-column {
+    height: 100%;
+  }
+  #content-column {
+    height: 100vh;
+  }
 }
 </style>

@@ -5,7 +5,7 @@
         <h3>About Nonstagram</h3>
         <p>
           Nonstagram is a single page application for uploading images, viewing
-          images, and commenting on images. This website is just practice
+          images, and commenting on images. This website is just a practice
           project, so it is missing some features.
         </p>
         <p>

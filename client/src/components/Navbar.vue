@@ -4,7 +4,7 @@
     <div class="navbar-brand">
       <div class="navbar-item">
         <router-link to="/">
-          <p class="subtitle" @click="resetGallery">
+          <p class="subtitle" @click="resetGallery; closeNavbar()">
             <i class="fas fa-camera"></i>
             Nonstagram
           </p>
@@ -142,6 +142,9 @@ export default {
     },
     toggleNavbar() {
       this.showNav = !this.showNav;
+    },
+    closeNavbar() {
+      this.showNav = false;
     }
   }
 };
